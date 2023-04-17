@@ -1,7 +1,8 @@
+import 'package:cod_assistant/GlobalData.dart';
+import 'package:cod_assistant/MaleSelection/MaleSelectionScreen.dart';
+import 'package:cod_assistant/FemaleSelection/FemaleSelectionScreen.dart';
 import 'package:flutter/material.dart';
-
-import 'FemaleSelection.dart';
-import 'MaleSelection.dart';
+import 'package:hive/hive.dart';
 
 class GenderSelection extends StatelessWidget {
   const GenderSelection({Key? key}) : super(key: key);
@@ -10,9 +11,6 @@ class GenderSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("CODAssistant"),
-        ),
         backgroundColor: Colors.white,
         body: Center(
           child: Column(
@@ -24,12 +22,16 @@ class GenderSelection extends StatelessWidget {
                 child: Material(
                   child: InkResponse(
                     containedInkWell: true,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FemaleSelection(),
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FemaleSelectionScreen(),
+                        ),
+                      );
+                      GlobalData.selectedGender = "female";
+                      Hive.box('profile').put('gender', 'female');
+                    },
                     child: Ink.image(
                       image:
                           const AssetImage("assets/images/female_symbol.png"),
@@ -46,12 +48,16 @@ class GenderSelection extends StatelessWidget {
                 child: Material(
                   child: InkResponse(
                     containedInkWell: true,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MaleSelection(),
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MaleSelectionScreen(),
+                        ),
+                      );
+                      GlobalData.selectedGender = "male";
+                      Hive.box('profile').put('gender', 'male');
+                    },
                     child: Ink.image(
                       image: const AssetImage("assets/images/male_symbol.png"),
                     ),

@@ -7,7 +7,7 @@ class Selection extends StatelessWidget {
   final double width;
   final Widget destination;
   final Color backgroundColor;
-  final Color iconColor;
+  final Color? iconColor;
 
   const Selection(
       {required this.top,
@@ -15,8 +15,8 @@ class Selection extends StatelessWidget {
       required this.height,
       required this.width,
       required this.destination,
-      this.backgroundColor = Colors.black12,
-      this.iconColor = Colors.white,
+      this.backgroundColor = Colors.white70,
+      this.iconColor,
       super.key});
 
   @override
@@ -38,7 +38,9 @@ class Selection extends StatelessWidget {
                       builder: (context) => destination,
                     ),
                   ), // Navigator.push
-              child: Icon(Icons.ads_click, color: iconColor)),
+              child: iconColor != null
+                  ? Icon(Icons.ads_click, color: iconColor)
+                  : null),
         ),
       ),
     );
