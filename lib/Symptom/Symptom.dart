@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Audio/Audio.dart';
 import '../GlobalData.dart';
+import 'SymptomSeverityDialog.dart';
 
 class Symptom {
   ImageProvider image;
@@ -10,6 +11,8 @@ class Symptom {
   String? emoji;
   String description;
   Audio audio;
+  bool hasSeverity = false;
+  double severity = 0;
 
   Symptom(
       {required this.image,
@@ -63,6 +66,13 @@ class Symptom {
       ),
       child: InkResponse(
         onTap: () => {
+          if (hasSeverity)
+            {
+              showDialog(
+                context: context,
+                builder: (context) => SymptomSeverityDialog(symptom: this),
+              ),
+            },
           GlobalData.symptoms.add(this),
           Navigator.push(
             context,
